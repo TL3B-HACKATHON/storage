@@ -11,20 +11,22 @@ class Storage {
       EXPERIMENTAL: { pubsub: true },
       config: {
         Bootstrap: [],
-        Addresses: { Swarm: [] },
+        Addresses: { Swarm: [
+          "/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star",
+          "/dns4/star-signal.cloud.ipfs.team/tcp/443/wss/p2p-webrtc-star",
+        ] },
       },
     });
     this._init();
   }
   async _init() {
     this.orbitdb = await this.OrbitDB.createInstance(this.node);
-    // this.docStore = await this.orbitdb.keyvalue("users");
-    this.docStore = await this.orbitdb.open(
-      "/orbitdb/zdpuAmF9VyeEjdtHUBdjBQA8Cmo2eLAfJuLBhvyfb7krRsqEZ/users"
-    );
+    this.docStore = await this.orbitdb.keyvalue("users");
+    // this.docStore = await this.orbitdb.open(
+    //   "/orbitdb/zdpuAmF9VyeEjdtHUBdjBQA8Cmo2eLAfJuLBhvyfb7krRsqEZ/users"
+    // );
     // /orbitdb/zdpuAmF9VyeEjdtHUBdjBQA8Cmo2eLAfJuLBhvyfb7krRsqEZ/users
-    // console.log(this.docStore);
-    // console.log("this.docStore", this.docStore);
+     console.log("this.docStore", this.docStore);
 
     await this.docStore.load();
 
